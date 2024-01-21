@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}VTF Journal{% endblock %}
+
+{% block content %}
+
+<!-- Latest Journal Section -->
+<div class="container p-3">
+  <h2 class="text-center mt-5 mb-4">Journal Posts</h2>
+
+  <!-- Custom Card Design -->
+  <div class="row p-3">
+    {% for journal in latest_journals %}
+    <div class="col-md-4">
+      <div class="custom-card">
+        <img
+          src="{{ journal.thumbnail.url }}"
+          class="card-img-top img-fluid custom-card-img"
+          alt="{{ journal.title }}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ journal.title }}</h5>
+          <p class="card-text">
+            {{ journal.description }}
+          </p>
+          <a
+            href="{% url 'journal_detail' journal_id=journal.id %}"
+            class="btn btn-primary"
+            >Read More</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Custom Card CSS -->
+<style>
+  .custom-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    height: 100%; /* Ensure all cards have the same height */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom-card:hover {
+    transform: scale(1.05);
+  }
+
+  .custom-card .card-body {
+    padding: 15px;
+    flex-grow: 1; /* Allow the body to grow and occupy remaining space */
+  }
+
+  .custom-card-img {
+    height: 200px; /* Set the desired height for all card images */
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .custom-card h5.card-title {
+    color: #333;
+  }
+
+  .custom-card p.card-text {
+    color: #666;
+    flex-grow: 1; /* Allow the text to grow and occupy remaining space */
+  }
+
+  .custom-card a.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-end; /* Align the button to the bottom */
+  }
+</style>
+
+{% endblock %}
